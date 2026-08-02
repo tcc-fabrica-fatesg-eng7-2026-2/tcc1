@@ -1,0 +1,32 @@
+name: Compilar Monografia LaTeX
+
+# A pipeline roda sempre que você fizer um push para a branch main
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build_latex:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Faz o checkout do código do seu repositório
+      - name: Checkout do repositório
+        uses: actions/checkout@v4
+
+      # 2. Compila o documento LaTeX
+      - name: Compilar TCC
+        uses: xu-cheng/latex-action@v3
+        with:
+          # Substitua 'main.tex' pelo nome exato do seu arquivo principal
+          root_file: main.tex 
+          # Parâmetros recomendados para parar a build se houver erro crítico no código
+          args: -pdf -file-line-error -halt-on-error -interaction=nonstopmode
+
+      # 3. Salva o PDF gerado para download
+      - name: Upload do PDF do TCC
+        uses: actions/upload-artifact@v4
+        with:
+          name: TCC_PDF
+          path: main.pdf

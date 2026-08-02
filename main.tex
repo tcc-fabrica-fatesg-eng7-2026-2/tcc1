@@ -1,0 +1,72 @@
+% ------------------------------------------------------------------------
+% 1. CONFIGURAÇÃO DA CLASSE E PACOTES (Dependências)
+% ------------------------------------------------------------------------
+\documentclass[
+	12pt,       % Tamanho da fonte
+	openright,  % Capítulos começam em página ímpar
+	twoside,    % Impressão frente e verso (se for só digital, pode usar oneside)
+	a4paper,    % Tamanho do papel
+	english,    % Idioma adicional para o Abstract
+	brazilian      % Idioma principal do documento
+]{abntex2}
+
+% Pacotes fundamentais
+\usepackage[T1]{fontenc}        % Seleção de códigos de fonte
+\usepackage{lmodern}            % CORREÇÃO: Usa a fonte Latin Modern (Vetorial/Escalável)
+\usepackage[utf8]{inputenc}     % Codificação do documento
+\usepackage{microtype}          % Melhora a justificação (agora vai funcionar!)
+\usepackage{graphicx}           % Para inclusão de figuras
+\usepackage[alf]{abntex2cite}   % Citações no padrão ABNT
+
+% ------------------------------------------------------------------------
+% 2. METADADOS DO TRABALHO (Variáveis de Ambiente)
+% ------------------------------------------------------------------------
+\titulo{[Adicionar Titulo do TCC]}
+\autor{
+    Daniel Douglas Melo Gomes Neto\\
+    José Carlos Vaz Felipe\\
+    Lucas Alves Dos Reis\\
+    Pedro Henrique Pereira Medeiros Spíndola}
+\local{Goiânia, GO}
+\data{2026}
+\orientador{Prof. [Nome do seu Orientador]}
+\instituicao{%
+  Faculdade Senai Fatesg
+}
+\tipotrabalho{Monografia (Trabalho de Conclusão de Curso)}
+\preambulo{Trabalho de Conclusão de Curso apresentado à Faculdade SENAI Fatesg como requisito parcial para obtenção do título de Bacharel em Engenharia de Software.}
+
+% ------------------------------------------------------------------------
+% 3. ESTRUTURA DO DOCUMENTO (Execução)
+% ------------------------------------------------------------------------
+\begin{document}
+
+% Retira o espaço extra obsoleto entre as frases
+\frenchspacing 
+
+% --- ELEMENTOS PRÉ-TEXTUAIS ---
+\imprimircapa
+\imprimirfolhaderosto
+
+% (Aqui entrariam Dedicatória, Agradecimentos, Resumo e Abstract)
+
+% Inserir o Sumário automaticamente
+\pdfbookmark[0]{\contentsname}{toc}
+\tableofcontents*
+\cleardoublepage
+
+% --- ELEMENTOS TEXTUAIS ---
+\textual
+
+% Aqui nós importamos os arquivos separados para manter a organização
+% Crie uma pasta 'capitulos' e coloque estes arquivos lá
+\include{capitulos/01_introducao}
+
+
+% --- ELEMENTOS PÓS-TEXTUAIS ---
+\postextual
+
+% Referências bibliográficas (Puxa do seu arquivo referencias.bib)
+\bibliography{referencias}
+
+\end{document}
