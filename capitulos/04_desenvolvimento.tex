@@ -1,0 +1,19 @@
+\chapter{Desenvolvimento}
+
+Este capítulo detalha as etapas de engenharia, modelagem e implementação do sistema computacional para controle e automação do ciclo de calibração metrológica. São apresentados os requisitos do sistema, a arquitetura de microsserviços conteinerizados em Java e Spring Boot com orientação a eventos, os módulos do protótipo desenvolvido e a aplicação da metodologia \textit{Spec-Kit} e TDD na construção do software.
+
+\section{Levantamento de Requisitos e Regras de Negócio}
+
+\textcolor{red}{(Descrever aqui os requisitos funcionais e não funcionais do sistema: o cadastro de instrumentos e TAGs, as periodicidades semestral e anual, a geração do relatório Farol, o fluxo de batimento de certificados contra o fornecedor Suporty Calibrações, as regras de justificativas para instrumentos extraviados/descartados e as metas de desempenho e escalabilidade assíncrona.)}
+
+\section{Arquitetura da Solução e Modelagem de Eventos}
+
+\textcolor{red}{(Apresentar aqui o diagrama arquitetural da solução destacando a divisão dos microsserviços em Java/Spring Boot, a estratégia de conteinerização com Docker e a orquestração via mensageria assíncrona. Detalhar o papel dos eventos de domínio mapeados no ciclo metrológico, tais como: InstrumentoCadastrado, CalibracaoAgendada, CertificadoRecebido e DivergenciaDetectada, demonstrando o desacoplamento temporal e espacial entre os serviços.)}
+
+\section{Implementação do Protótipo Funcional}
+
+\textcolor{red}{(Apresentar aqui a construção prática do software: a stack tecnológica escolhida (Java, ecossistema Spring Boot, Docker e mensageria), a implementação do microsserviço de inventário e revisões, o mecanismo de projeção reativa do relatório Farol, a construção do serviço simulador Mock da Suporty Calibrações para envio assíncrono de relatórios/certificados, e as telas/dashboards do sistema com capturas de tela e explicações de usabilidade.)}
+
+\section{Validação e Testes com Spec-Kit e TDD}
+
+\textcolor{red}{(Demonstrar aqui como as especificações executáveis foram implementadas antes da codificação das regras de negócio nos microsserviços. Incluir trechos de código de testes unitários e de integração com JUnit e Spring Test, comprovações da execução do ciclo Red-Green-Refactor e validações de cenários de divergência no batimento automático de certificados.)}

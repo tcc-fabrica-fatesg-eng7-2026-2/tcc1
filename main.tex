@@ -3,25 +3,27 @@
 % ------------------------------------------------------------------------
 \documentclass[
 	12pt,       % Tamanho da fonte
-	openright,  % Capítulos começam em página ímpar
-	twoside,    % Impressão frente e verso (se for só digital, pode usar oneside)
+	oneside,    % Impressão apenas frente (resolve o problema das folhas em branco)
 	a4paper,    % Tamanho do papel
 	english,    % Idioma adicional para o Abstract
-	brazilian      % Idioma principal do documento
+	brazilian   % Idioma principal do documento
 ]{abntex2}
 
 % Pacotes fundamentais
 \usepackage[T1]{fontenc}        % Seleção de códigos de fonte
-\usepackage{lmodern}            % CORREÇÃO: Usa a fonte Latin Modern (Vetorial/Escalável)
+\usepackage{lmodern}            % Usa a fonte Latin Modern
 \usepackage[utf8]{inputenc}     % Codificação do documento
-\usepackage{microtype}          % Melhora a justificação (agora vai funcionar!)
+\usepackage{microtype}          % Melhora a justificação
 \usepackage{graphicx}           % Para inclusão de figuras
 \usepackage[alf]{abntex2cite}   % Citações no padrão ABNT
+\usepackage{ragged2e}          % Permite comandos como \justifying
+\usepackage{indentfirst}        % Indenta o primeiro parágrafo de cada seção
+\usepackage{xcolor}             % Cores no texto
 
 % ------------------------------------------------------------------------
-% 2. METADADOS DO TRABALHO (Variáveis de Ambiente)
+% 2. METADADOS DO TRABALHO
 % ------------------------------------------------------------------------
-\titulo{[Adicionar Titulo do TCC]}
+\titulo{Gestão do ciclo de calibração metrológica: Uma abordagem orientada a eventos e escalabilidade}
 \autor{
     Daniel Douglas Melo Gomes Neto\\
     José Carlos Vaz Felipe\\
@@ -29,28 +31,119 @@
     Pedro Henrique Pereira Medeiros Spíndola}
 \local{Goiânia, GO}
 \data{2026}
-\orientador{Prof. [Nome do seu Orientador]}
+\orientador{Prof. Ramyres Aquino}
 \instituicao{%
-  Faculdade Senai Fatesg
+  Faculdade SENAI Fatesg
 }
-\tipotrabalho{Monografia (Trabalho de Conclusão de Curso)}
-\preambulo{Trabalho de Conclusão de Curso apresentado à Faculdade SENAI Fatesg como requisito parcial para obtenção do título de Bacharel em Engenharia de Software.}
+\tipotrabalho{Trabalho de Conclusão de Curso}
+\preambulo{Documentação do Projeto de Software apresentada como trabalho de conclusão de curso à Faculdade SENAI Fatesg, para obtenção do título de Graduado em Engenharia de Software.}
 
 % ------------------------------------------------------------------------
-% 3. ESTRUTURA DO DOCUMENTO (Execução)
+% 3. ESTRUTURA DO DOCUMENTO
 % ------------------------------------------------------------------------
 \begin{document}
 
-% Retira o espaço extra obsoleto entre as frases
 \frenchspacing 
 
 % --- ELEMENTOS PRÉ-TEXTUAIS ---
+% Página 1: Capa
 \imprimircapa
+
+% Página 2: Folha de Rosto
 \imprimirfolhaderosto
 
-% (Aqui entrariam Dedicatória, Agradecimentos, Resumo e Abstract)
+% Página 3: Folha de Aprovação
+\begin{folhadeaprovacao}
+  \begin{center}
+    {\ABNTEXchapterfont\large\imprimirautor}
 
-% Inserir o Sumário automaticamente
+    \vspace*{\fill}\vspace*{\fill}
+    {\ABNTEXchapterfont\bfseries\Large\imprimirtitulo}
+    \vspace*{\fill}
+  \end{center}
+
+  \noindent\justifying\imprimirpreambulo
+  \vspace*{\fill}
+
+  \noindent Trabalho aprovado. Goiânia, \_\_ de \_\_\_\_\_\_\_\_\_\_ de \_\_\_\_.
+
+   \vspace{0.5cm}
+   \begin{center}
+     \textbf{Banca Examinadora}
+   \end{center}
+
+   \assinatura{\textbf{Prof. Dr. Xxxxx} \\ Faculdade SENAI Fatesg}
+   \assinatura{\textbf{Prof. Ms. Xxx} \\ Faculdade SENAI Fatesg}
+   \assinatura{\textbf{Prof. Esp. Xxxx} \\ Faculdade SENAI Fatesg}
+
+  \begin{center}
+    \vspace*{0.5cm}
+    {\large\imprimirlocal}
+    \par
+    {\large\imprimirdata}
+    \vspace*{1cm}
+  \end{center}
+\end{folhadeaprovacao}
+
+% Página 4: Agradecimentos
+\begin{agradecimentos}
+Deixamos aqui nossos agradecimentos:
+
+À Faculdade SENAI Fatesg, pela oportunidade de desenvolver nossa formação acadêmica e profissional.
+
+À nossa orientadora, Ramyres, por nos orientar e indicar os caminhos durante o desenvolvimento deste trabalho.
+
+Aos professores, por compartilharem seus conhecimentos e experiências, contribuindo para a nossa formação acadêmica e profissional.
+
+Aos alunos que participaram diretamente do projeto, pela disponibilidade e colaboração, fundamentais para o desenvolvimento deste estudo.
+
+A Deus, sempre.
+
+Por fim, agradecemos a todos aqueles que, direta ou indiretamente, contribuíram para a realização deste trabalho.
+\end{agradecimentos}
+
+% Página 5: Resumo
+\setlength{\absparsep}{18pt} % Espaço entre os parágrafos de resumo
+\begin{resumo}
+O controle do ciclo metrológico e a realização periódica da calibração de instrumentos de medição industriais são importantes para garantir a qualidade e a confiabilidade dos processos industriais, além de atender às exigências de normas como a ISO 9001 e a ISO/IEC 17025. Em muitas empresas, esse controle ainda é realizado por meio de planilhas eletrônicas e processos manuais, o que pode gerar dificuldades no acompanhamento dos instrumentos, erros na conferência de certificados e problemas na organização das informações necessárias para auditorias. Diante desse cenário, o presente trabalho de conclusão de curso tem como objetivo desenvolver um sistema computacional para centralizar e automatizar o gerenciamento da calibração de instrumentos de medição, permitindo acompanhar prazos, certificados e informações relacionadas ao ciclo metrológico. Para isso, são aplicadas práticas de engenharia de software no desenvolvimento da solução, considerando aspectos como organização da arquitetura, confiabilidade dos dados e possibilidade de expansão do sistema. Como resultado, busca-se demonstrar como a utilização de uma solução informatizada pode contribuir para melhorar o controle metrológico, reduzir atividades manuais e facilitar o acesso às informações necessárias para a gestão da qualidade e a realização de auditorias.
+
+\textbf{Palavras-chave}: Metrologia industrial. Gestão da qualidade. Sistema computacional. Engenharia de software. Calibração de instrumentos.
+\end{resumo}
+
+% Página 6: Abstract
+\begin{resumo}[Abstract]
+ \begin{otherlanguage*}{english}
+   The control of the metrological cycle and the periodic calibration of industrial measuring instruments are important to ensure the quality and reliability of industrial processes, as well as to meet the requirements of standards such as ISO 9001 and ISO/IEC 17025. In many companies, this control is still carried out through electronic spreadsheets and manual processes, which can lead to difficulties in monitoring instruments, errors in certificate verification, and problems organizing the information required for audits. In this context, this undergraduate thesis aims to develop a software system to centralize and automate the management of measuring instrument calibration, enabling the monitoring of deadlines, certificates, and information related to the metrological cycle. To achieve this, software engineering practices are applied throughout the development of the solution, considering aspects such as architectural organization, data reliability, and system scalability. As a result, the study seeks to demonstrate how the use of a computerized solution can contribute to improving metrological control, reducing manual activities, and facilitating access to information required for quality management and auditing processes.
+
+   \textbf{Keywords}: Industrial metrology. Quality management. Software system. Software engineering. Instrument calibration.
+ \end{otherlanguage*}
+\end{resumo}
+
+% Página 7: Lista de Ilustrações
+\pdfbookmark[0]{\listfigurename}{lof}
+\listoffigures*
+\cleardoublepage
+
+% Página 8: Lista de Tabelas e Lista de Abreviaturas/Siglas
+\pdfbookmark[0]{\listtablename}{lot}
+\listoftables*
+\cleardoublepage
+
+% Lista de Siglas
+\begin{siglas}
+  \item[ABNT] Associação Brasileira de Normas Técnicas
+  \item[EDA] \textit{Event-Driven Architecture} (Arquitetura Orientada a Eventos)
+  \item[FATESG] Faculdade de Tecnologia SENAI Goiás
+  \item[IEC] \textit{International Electrotechnical Commission} (Comissão Eletrotécnica Internacional)
+  \item[ISO] \textit{International Organization for Standardization} (Organização Internacional de Normalização)
+  \item[NBR] Norma Brasileira
+  \item[SENAI] Serviço Nacional de Aprendizagem Industrial
+  \item[TCC] Trabalho de Conclusão de Curso
+  \item[TDD] \textit{Test-Driven Development} (Desenvolvimento Guiado por Testes)
+  \item[VIM] Vocabulário Internacional de Metrologia
+\end{siglas}
+
+% Página 9: Sumário
 \pdfbookmark[0]{\contentsname}{toc}
 \tableofcontents*
 \cleardoublepage
@@ -58,15 +151,21 @@
 % --- ELEMENTOS TEXTUAIS ---
 \textual
 
-% Aqui nós importamos os arquivos separados para manter a organização
-% Crie uma pasta 'capitulos' e coloque estes arquivos lá
+% Capítulos
 \include{capitulos/01_introducao}
-
+\include{capitulos/02_objetivos}
+\include{capitulos/03_teoria_base}
+\include{capitulos/04_desenvolvimento}
+\include{capitulos/05_resultados}
+\include{capitulos/06_conclusao}
 
 % --- ELEMENTOS PÓS-TEXTUAIS ---
 \postextual
 
-% Referências bibliográficas (Puxa do seu arquivo referencias.bib)
+% Referências bibliográficas (se tiver referencias.bib)
+\ifx\relax\undefined
+\else
 \bibliography{referencias}
+\fi
 
 \end{document}

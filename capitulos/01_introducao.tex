@@ -1,0 +1,32 @@
+\chapter{Introdução}
+
+Na rotina industrial, a medição precisa de grandezas como temperatura, pressão e massa é essencial para manter a segurança operacional e o padrão de qualidade exigido por normas como a ABNT NBR ISO 9001 e a ABNT NBR ISO/IEC 17025. Para atender a esses requisitos, equipamentos como termorresistências (PT-100), manômetros e transmissores de peso precisam passar por calibrações periódicas que comprovem que seus desvios permanecem dentro dos limites aceitáveis.
+
+Em grande parte das empresas, contudo, esse controle ainda é feito em planilhas eletrônicas separadas por periodicidade. Todo mês, a equipe precisa filtrar manualmente os instrumentos prestes a vencer para gerar uma projeção (relatório ``Farol'') enviada à empresa prestadora de calibração e, depois, conferir visualmente cada certificado recebido contra a planilha interna. Além do retrabalho e do risco de erro humano, esse processo dificulta o rastreio de equipamentos extraviados ou descartados, cujas justificativas acabam espalhadas em e-mails.
+
+Para resolver esse cenário, este trabalho apresenta o desenvolvimento de uma plataforma centralizada para a gestão do ciclo de calibração metrológica. Mais do que substituir planilhas por um cadastro tradicional, o projeto adota uma arquitetura de microsserviços desenvolvidos em Java com o framework Spring Boot, conteinerizados e orquestrados sobre os princípios de escalabilidade e Arquitetura Orientada a Eventos (EDA) \cite{kleppmann2017}, aliados ao desenvolvimento guiado por testes e especificações executáveis (\textit{Spec-Kit} / TDD) \cite{beck2003}.
+
+\section{Justificativa}
+
+No contexto operacional, a substituição de controles manuais por um sistema informatizado elimina gargalos na conferência de certificados, evita que instrumentos vencidos continuem em uso na linha de produção e centraliza o histórico exigido em auditorias de qualidade.
+
+Sob a ótica da Engenharia de Software, o trabalho justifica-se por elevar um domínio de gestão cadastral a uma arquitetura preparada para alta demanda e evolução contínua. Conforme discutido por \citeonline{kleppmann2017}, sistemas monolíticos e puramente síncronos tendem a apresentar lentidão e acoplamento excessivo ao processar lotes volumosos de dados e notificações simultâneas. A divisão da solução em microsserviços autônomos em Java/Spring Boot, isolados em contêineres e integrados via Arquitetura Orientada a Eventos (EDA), combinada à validação rigorosa de regras de negócio via \textit{Spec-Kit} e TDD proposta por \citeonline{beck2003}, permite desacoplar a ingestão de dados das validações metrológicas, demonstrando na prática como construir um ecossistema de software escalável, tolerante a falhas e auditável.
+
+\section{Objetivos}
+
+\subsection{Objetivo Geral}
+
+Projetar, desenvolver e validar um sistema escalável de gestão e monitoramento do ciclo de calibração de instrumentos metrológicos industriais, estruturado em microsserviços conteinerizados em Java e Spring Boot, fundamentado em Arquitetura Orientada a Eventos (EDA) e na metodologia \textit{Spec-Kit} / TDD, capaz de automatizar o batimento assíncrono de certificados, projetar vencimentos em tempo real e assegurar rastreabilidade para auditorias.
+
+\subsection{Objetivos Específicos}
+
+\begin{itemize}
+    \item Mapear as entidades e os eventos de domínio do ciclo metrológico (cadastro, agendamento, recepção de certificados, divergências e baixas/extravios) em conformidade com as normas ABNT NBR ISO 9001 e ISO/IEC 17025;
+    \item Estruturar uma arquitetura orientada a eventos com processamento assíncrono por mensageria, garantindo desacoplamento e escalabilidade horizontal;
+    \item Implementar o mecanismo reativo de projeção de vencimentos (relatório Farol) e o serviço de batimento automatizado de certificados utilizando um simulador (\textit{Mock}) do provedor externo de calibração;
+    \item Validar as regras de negócio e a resiliência do fluxo assíncrono por meio de testes automatizados baseados em especificações executáveis (\textit{Spec-Kit} / TDD).
+\end{itemize}
+
+\section{Estrutura do Trabalho}
+
+\textcolor{red}{(Preencher futuramente)}

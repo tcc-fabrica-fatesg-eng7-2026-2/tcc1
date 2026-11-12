@@ -1,0 +1,68 @@
+\chapter{Teoria Base}
+
+\textcolor{red}{(Conferir esse tópico)}
+
+Este capítulo apresenta a fundamentação teórica que dá sustentação a este trabalho, articulando os preceitos normativos da metrologia industrial, os princípios de Arquitetura Orientada a Eventos voltados à escalabilidade e as práticas de garantia da qualidade de software com foco em desenvolvimento guiado por testes.
+
+\section{Metrologia Industrial e Gestão da Qualidade}
+
+A metrologia constitui a ciência da medição e suas aplicações, englobando aspectos teóricos e práticos em qualquer domínio da ciência e da tecnologia \cite{vim2012}. No contexto industrial, medições confiáveis de grandezas como temperatura, pressão e massa são mandatórias para assegurar a repetibilidade produtiva, a segurança patrimonial e a conformidade dos produtos entregues ao mercado consumidor.
+
+A calibração é definida pelo \citeonline{vim2012} como o conjunto de operações que estabelece, sob condições especificadas, a relação entre os valores indicados por um instrumento de medição e os valores correspondentes estabelecidos por padrões rastreáveis. No ambiente corporativo, a gestão metrológica é regulamentada por normas rigorosas:
+\begin{itemize}
+    \item \textbf{ABNT NBR ISO 9001:} preconiza que as organizações devem determinar e prover recursos para garantir resultados válidos e confiáveis quando a medição for utilizada como evidência de conformidade, exigindo que os equipamentos sejam calibrados ou verificados a intervalos especificados e preservados de ajustes que invalidem sua medição \cite{iso9001};
+    \item \textbf{ABNT NBR ISO/IEC 17025:} estabelece os requisitos técnicos e de gestão para laboratórios de ensaio e calibração, determinando que os instrumentos devem dispor de comprovação inequívoca de calibração, rastreabilidade metrológica e registros formais de qualquer anomalia ou exclusão de uso \cite{iso17025}.
+\end{itemize}
+
+O ciclo de vida metrológico de equipamentos industriais comuns — como sensores resistivos de temperatura (PT-100), manômetros de processo e células de carga acopladas a transmissores de peso — exige acompanhamento sistemático de periodicidades (frequências semestrais ou anuais), emissão de certificados com declarações de incerteza e tratamento documental formal quando instrumentos são extraviados ou descartados.
+
+\section{Arquitetura de Microsserviços e Orientação a Eventos (EDA)}
+
+O padrão de arquitetura em microsserviços propõe a decomposição de um sistema complexo em um conjunto de serviços autônomos, focados em um domínio delimitado (\textit{bounded context}) e passíveis de implantação independente. No ecossistema corporativo Java, o framework Spring Boot consolidou-se como o padrão de fato para a construção dessas aplicações, provendo injeção de dependências, conectores nativos para sistemas de mensageria e suporte simplificado à criação de serviços reativos e de alta performance.
+
+Para viabilizar a escalabilidade elástica e a consistência entre ambientes, os microsserviços são habitualmente conteinerizados por meio de tecnologias como o Docker. A conteinerização isola a aplicação com todas as suas bibliotecas e o ambiente de execução Java (JVM), garantindo que a réplica de um serviço em produção se comporte exatamente como em desenvolvimento e permitindo a orquestração dinâmica da carga de trabalho.
+
+A integração entre esses microsserviços atinge seu nível máximo de desacoplamento por meio da Arquitetura Orientada a Eventos (\textit{Event-Driven Architecture} - EDA), na qual os componentes comunicam-se primariamente através da emissão e do consumo assíncrono de eventos de domínio \cite{richards2020}. Um evento representa uma mudança relevante de estado (como a chegada de novos certificados ou a emissão de alertas de vencimento). Conforme detalha \citeonline{kleppmann2017}, substituir chamadas HTTP síncronas bloqueantes por corretores de mensagens (\textit{message brokers}) confere ao ecossistema:
+\begin{itemize}
+    \item \textbf{Desacoplamento temporal e espacial:} os microsserviços de ingestão não dependem da disponibilidade imediata dos serviços de auditoria ou notificação para concluir suas operações;
+    \item \textbf{Escalabilidade horizontal independente:} microsserviços com maior demanda de processamento (como o motor de batimento metrológico) podem ser escalados em contêineres adicionais de forma isolada, absorvendo picos sazonais sem comprometer a estabilidade do conjunto;
+    \item \textbf{Resiliência e tolerância a falhas:} caso um serviço consumidor fique temporariamente inoperante, os eventos permanecem armazenados de maneira segura no barramento de mensageria para processamento posterior.
+\end{itemize}
+
+\section{Engenharia de Software e Qualidade de Código (TDD e Spec-Kit)}
+
+A robustez de um sistema de missão crítica metrológica depende da confiabilidade de suas regras de negócio automatizadas. Nesse sentido, a adoção do Desenvolvimento Guiado por Testes (\textit{Test-Driven Development} - TDD), sistematizado por \citeonline{beck2003}, propõe a inversão do fluxo tradicional de desenvolvimento por meio de um ciclo iterativo composto por três fases fundamentais, conforme ilustrado na Figura~\ref{fig:ciclo_tdd}:
+
+\begin{figure}[htbp]
+  \centering
+  \caption{\label{fig:ciclo_tdd}Ciclo iterativo do Desenvolvimento Guiado por Testes (TDD)}
+  \begin{minipage}[c]{0.48\textwidth}
+    \begin{enumerate}
+      \item \textbf{\textit{Red}:} elaboração de um teste automatizado que expresse o comportamento esperado de uma regra de negócio antes da existência da implementação, resultando inicialmente em falha;
+      \item \textbf{\textit{Green}:} desenvolvimento do código produtivo estritamente necessário para que o teste seja aprovado;
+      \item \textbf{\textit{Refactor}:} melhoria contínua da estrutura e legibilidade do código, eliminando redundâncias enquanto os testes garantem a ausência de regressões funcionais.
+    \end{enumerate}
+  \end{minipage}\hfill
+  \begin{minipage}[c]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{figuras/FIGURA-01.jpg}
+  \end{minipage}
+  \fonte{Adaptado de \citeonline{sydle2024tdd}.}
+\end{figure}
+
+Complementarmente, a abordagem de especificações executáveis (\textit{Spec-Kit}) traduz requisitos normativos e fluxos operacionais em critérios de aceitação automatizáveis. Ao alinhar cenários de domínio aos testes de unidade e integração prévios ao código-fonte, assegura-se que regras complexas de validação de certificados, cruzamento de datas e tolerâncias metrológicas sejam permanentemente auditáveis e imunes a desvios durante a evolução da aplicação.
+
+
+\section{Gerência de Projetos de Software}
+
+\subsection{Importância da Gerência de Projetos de Software}
+
+\textcolor{red}{(Descrever aqui a relevância da gestão estruturada em projetos de software: controle de prazos, estimativas, mitigação de riscos, alinhamento entre os membros da equipe e garantia de entrega de valor no contexto acadêmico e profissional da Fábrica de Software.)}
+
+\subsection{Metodologia Aplicada na Prática}
+
+\textcolor{red}{(Explicar aqui como a equipe aplicou os conceitos de gerência no dia a dia: divisão de papéis e responsabilidades entre os quatro integrantes, organização do fluxo de trabalho, realização de reuniões de alinhamento com a orientação e controle das entregas das disciplinas de TCC e Fábrica de Software.)}
+
+\subsection{Planejamento e Cronograma no ProjectLibre}
+
+\textcolor{red}{(Apresentar aqui o planejamento operacional estruturado no software ProjectLibre: a Estrutura Analítica do Projeto (EAP / WBS), o diagrama de Gantt, os marcos principais (milestones), a alocação de esforço por integrante e a captura de tela do cronograma gerado na ferramenta.)}

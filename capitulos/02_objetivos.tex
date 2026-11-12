@@ -1,0 +1,35 @@
+\chapter{Objetivo Geral do Trabalho}
+
+Este capítulo contextualiza a situação atual do controle metrológico na indústria, define os objetivos propostos para a solução computacional e apresenta as principais características arquiteturais e tecnológicas empregadas no desenvolvimento do sistema.
+
+\section{Cenário Atual do Projeto}
+
+Atualmente, o processo de acompanhamento do status e da data de calibração para as diversas etiquetas e tags de instrumentos de metrologia na indústria é realizado de maneira estritamente manual, demandando considerável esforço operacional do instrumentista. Esse modelo está sujeito a falhas humanas e a atrasos na sincronização das informações, representando um risco para a qualidade e para as auditorias de conformidade do processo fabril.
+
+O controle desses instrumentos — tais como sensores resistivos de temperatura (PT-100), manômetros e células de carga em transmissores de peso — é conduzido por meio de planilhas eletrônicas divididas por periodicidade de calibração (semestral e anual). Mensalmente, a equipe responsável realiza o levantamento manual dos equipamentos vincendos para elaborar a projeção de serviços (relatório ``Farol'') enviada à prestadora externa (Suporty Calibrações), necessitando conferir visualmente cada certificado emitido contra as bases internas e mantendo justificativas de extravios ou baixas dispersas em e-mails.
+
+\section{Objetivos}
+
+O objetivo geral deste trabalho é projetar, desenvolver e validar um sistema escalável para a gestão e o monitoramento do ciclo de vida de calibração de instrumentos metrológicos industriais, estruturado em microsserviços conteinerizados com Java e Spring Boot, fundamentado em uma Arquitetura Orientada a Eventos (EDA) e na metodologia \textit{Spec-Kit} / TDD, assegurando o batimento assíncrono de certificados externos e a rastreabilidade integral para auditorias de qualidade.
+
+Para atingir o propósito geral, são definidos os seguintes objetivos específicos:
+
+\begin{itemize}
+    \item Desenvolver um simulador (\textit{Mock}) do prestador externo de serviços para viabilizar o envio e a validação contínua da integração assíncrona;
+    \item \textcolor{red}{(Adicionar o restante futuramente)}
+\end{itemize}
+
+\section{Características e Tecnologias da Solução}
+
+\textcolor{red}{(Conferir se está de acordo com o nosso projeto)}
+
+A solução proposta afasta-se do modelo convencional de processamento síncrono para priorizar disponibilidade, tolerância a falhas e competência em escalabilidade horizontal:
+
+\begin{itemize}
+    \item \textbf{Arquitetura de Microsserviços com Java e Spring Boot:} decomposição do domínio em serviços autônomos e focados (gerenciamento de inventário, ingestão de dados, motor de batimento e projeções), desenvolvidos sobre o ecossistema robusto do Spring Boot;
+    \item \textbf{Conteinerização com Docker:} empacotamento individual de cada microsserviço e de suas dependências em contêineres leves, viabilizando portabilidade entre ambientes de desenvolvimento e produção, além de facilitar a orquestração e a replicação elástica de instâncias;
+    \item \textbf{Arquitetura Orientada a Eventos (EDA) e Mensageria:} comunicação assíncrona entre os microsserviços por meio de filas e tópicos, permitindo que a ingestão de relatórios volumosos de calibração ocorra sem bloquear as interfaces de usuário nem sobrecarregar o banco transacional;
+    \item \textbf{Eventos de Domínio:} modelagem explícita das mudanças de estado metrológicas (\textit{InstrumentoCadastrado}, \textit{CalibracaoAgendada}, \textit{CertificadoRecebido} e \textit{DivergenciaDetectada}), desacoplando produtores de consumidores;
+    \item \textbf{Desenvolvimento Guiado por Testes (TDD) e \textit{Spec-Kit}:} validação prévia de regras de negócio críticas e contratos de eventos por meio de especificações executáveis, garantindo confiabilidade nas rotinas de validação de certificados;
+    \item \textbf{Rastreabilidade e Conformidade Regulatória:} histórico imutável das calibrações e retenção formal de evidências para instrumentos extraviados ou baixados, em conformidade com as normas ABNT NBR ISO 9001 e ISO/IEC 17025.
+\end{itemize}
